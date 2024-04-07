@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import axios from "axios"
 import mongoose from "mongoose";
-import { user } from "firebase-functions/v1/auth";
 const app = express();
 const port = 3000;
 const corsOptions = {
