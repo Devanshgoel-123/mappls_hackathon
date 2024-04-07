@@ -57,7 +57,8 @@ const Geoguesser = () => {
         {showMap ? <Answermap /> : null}
         
         {/* <StreetViewMap /> */}
-        {showScoreCard ? <ScoreCard /> : null}
+        <MapWidget/>
+              {showScoreCard ? <ScoreCard /> : null}
         
         
       </div>
