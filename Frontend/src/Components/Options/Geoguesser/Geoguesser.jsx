@@ -1,13 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import CountdownTimer from '../../Timer-Image/Timer.jsx';
 import Map from '../../Map.jsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import BackgroundImage from '../../../assets/Images/background.png';
 import StreetViewMap from '../../GoogleStreetView/StreetView.jsx';
 import logo from '../../../assets/Images/logo.png';
 import ScoreCard from './ScoreCard.jsx';
 import home from '../../../assets/Images/home.png'
-import MapWidget from '../../GoogleStreetView/MapplsLiveWidget.jsx';
 function Answermap() {
   return (
     <>
@@ -55,11 +54,8 @@ const Geoguesser = () => {
 
       <div className='map-box w-4/5 h-5/6 rounded-2xl m-2 bg-black flex justify-end relative'>
         {showMap ? <Answermap /> : null}
-        
-        {/* <StreetViewMap /> */}
-        <MapWidget/>
-              {showScoreCard ? <ScoreCard /> : null}
-        
+        <StreetViewMap />
+         {showScoreCard ? <ScoreCard /> : null}
         
       </div>
 

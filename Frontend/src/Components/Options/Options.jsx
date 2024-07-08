@@ -20,7 +20,7 @@ import { userCategoryActions } from '../../Store/CurrentUserPointsPrefSlice.js'
 
 const textSearch=async(location)=>{
       try{
-       const response=await axios.get("https://mappls-hackathon-backend.vercel.app/textSearch",{
+       const response=await axios.get("http://localhost:3000/textSearch",{
         params:{
           randomLocation:location
         }
@@ -35,7 +35,7 @@ const textSearch=async(location)=>{
 
   const getUserPreferences=async(email)=>{
        try{
-          const response=await axios.get("https://mappls-hackathon-backend.vercel.app/userData",{
+          const response=await axios.get("http://localhost:3000/userData",{
             params:{
               email:email
             }
@@ -59,8 +59,8 @@ const Options = () => {
             const size = Locations.length;
             const number = Math.floor(Math.random() * size);
             const randomLocation = Locations[number];
-            // const questionLocation=Locations[number];
-            const questionLocation=await textSearch(randomLocation.location);  //<- This works using the textsearch api
+            const questionLocation=Locations[number];
+            // const questionLocation=await textSearch(randomLocation.location);  //<- This works using the textsearch api
              const filterCategory=await getUserPreferences(activeUser.email);
              dispatch(userCategoryActions.setUserCategoryData(filterCategory))
             console.log(questionLocation)

@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { AnswerActions } from "../Store/userAnswerSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios"
-
+require('dotenv').config();
 const Map=()=>{
   const [answerCoords,setAnswerCoords]=useState({lat:"",lng:""});
   const dispatch=useDispatch();
   const baseUrlReverseGeo="https://apis.mappls.com/advancedmaps/v1"
-  const ApiKey='03b8c5a2d87f2e38e4622cab60cfb7aa'
+  const ApiKey=process.env.API_KEY_GMAPS;
+  
   useEffect(() => {
     function renderMap() {
       const map = new mappls.Map('map', {zoom:3});
@@ -49,12 +50,6 @@ const Map=()=>{
   }, [answerCoords, dispatch]);
   
   return <>
-
-  {/* <div style={{alignItems:"center",display:"flex",justifyContent:"center",padding:'2px',width:"30%"}}>
-    <div id="map" style={{height:"500px",width:"100%",alignItems:"center",border:"2px solid white",borderRadius:"20px"}}></div>
-  </div> */}
-
-
     <div className="flex w-full h-full">
       <div id="map" className="items-center w-full h-full rounded-lg"></div>
     </div>  

@@ -4,8 +4,6 @@ import { CoordActions } from '../Store/userCoordsSlice';
 import BackgroundImage from '../assets/Images/background.png'
 import Login from './Login-Register/Login';
 import { Landscape } from './Login-Register/Landscape';
-import axios from "axios"
-import { leaderActions } from '../Store/LeaderBoard';
 
 function  App() {
  

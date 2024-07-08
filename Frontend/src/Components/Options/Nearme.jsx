@@ -44,7 +44,7 @@ const Nearme = () => {
     const radius=useSelector((store)=>store.userRadius)
     
         const getCarouselData = () => {
-            axios.get("https://mappls-hackathon-backend.vercel.app/",{                       
+            axios.get("http://localhost:3000",{                       
                 params:{
                     lat:userCoords.lat,
                     lng:userCoords.long,

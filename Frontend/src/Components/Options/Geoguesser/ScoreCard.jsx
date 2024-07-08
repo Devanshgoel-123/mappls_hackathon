@@ -48,7 +48,7 @@ const ScoreCard=()=>{
  
     const handleClick=async()=>{
         try{
-            const result=await axios.post("https://mappls-hackathon-backend.vercel.app/ScoreBoard",{
+            const result=await axios.post("http://localhost:3000/ScoreBoard",{
                 points:points,
                 user:activeUser,
                 category:questionObject.keywords
