@@ -6,23 +6,25 @@ import axios from "axios";
 
 const ScoreCard=()=>{
     const questionObject=useSelector((store)=>store.askedPlace)
-    
     const userAnswer=useSelector((store)=>store.userAnswerCoords);
-     const activeUser=useSelector((store)=>store.activeUser);
-     
+    const activeUser=useSelector((store)=>store.activeUser);
     const userLat=userAnswer.answerCoords.lat;
     const userLong=userAnswer.answerCoords.lng;
+    const quesLat=questionObject.latitude;
+    const quesLong=questionObject.longitude;
     
     const [points,setPoints]=useState(null);
    useEffect(() => {
     const fetchData = async () => {
-        const eloc=questionObject.eLoc
-        const baseUrl = "https://apis.mappls.com/advancedmaps/v1";
-        const MapplsApiKEy = "b977a114567d823ff35753212dec68cb";
-
+        
         try {
-            const response = await axios.get(`${baseUrl}/${MapplsApiKEy}/distance_matrix/walking/${eloc};${userLong},${userLat}`);
-            const distance = response.data.results.distances[0][1]/1000;
+            const response = await axios.post("http://localhost:3000/getDistance",{
+                userLat,
+                userLong,
+                quesLat,
+                quesLong
+            });
+            const distance = response.data;
             console.log(questionObject)
             console.log(distance)
              if(distance<11){

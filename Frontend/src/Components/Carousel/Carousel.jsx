@@ -8,14 +8,15 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { NearByActions } from '../../Store/NearBySlice';
 import CarouselData from '../../../CarouselData'
-
+import CarouselMap from "../Carousel/CarouselMap"
 
 
 const Carousel = () => {
-   const carouselData=useSelector((store)=>store.carouselData);  //Onkar yeh raha tera data saara carousel ke liye 10 items hai pls isko carousel mei feed karke carousel bana de
-  //  console.log(CarouselData);
+   const carouselData=useSelector((store)=>store.carouselData);  
+   const userCoords=useSelector((store)=>store.userCoords);
   const dispatch=useDispatch();
-  const [data,setData] = useState(CarouselData)
+  const data=carouselData;
+  console.log(data);
 
   const [index , setIndex] = useState({
     prev : 0,
@@ -102,7 +103,7 @@ const Carousel = () => {
 
           <div className='z-10 scale-125 w-2/5 h-80 justify-center items-center m-2 rounded-3xl flex bg-black shadow-sm shadow-[#FBBC05]'>
               <div className='carousel-image w-3/5 h-4/5 rounded-lg m-4 flex justify-center items-center'> 
-              
+               <CarouselMap lat={userCoords.lat} long={userCoords.long}/>
               </div>
               <div className='w-2/5 h-4/5 rounded-lg flex flex-col justify-center items-center'>
                 <div className='carousel-text flex flex-col justify-center items-center'>

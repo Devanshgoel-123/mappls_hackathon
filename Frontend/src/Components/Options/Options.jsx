@@ -12,26 +12,11 @@ import { useState,useEffect } from 'react'
 import axios from "axios"
 import { CiSearch } from "react-icons/ci";
 import { RiMenu4Fill } from "react-icons/ri";
-import { CiUser } from "react-icons/ci";
 import { GrCaretNext } from "react-icons/gr";
 import { PiUserCircle } from "react-icons/pi";
 import { userCategoryActions } from '../../Store/CurrentUserPointsPrefSlice.js'
 
 
-const textSearch=async(location)=>{
-      try{
-       const response=await axios.get("http://localhost:3000/textSearch",{
-        params:{
-          randomLocation:location
-        }
-       })
-       console.log(response.data)
-       return response.data;
-      }catch(error){
-    console.log(error)
-  }
-  
-}
 
   const getUserPreferences=async(email)=>{
        try{
@@ -40,7 +25,6 @@ const textSearch=async(location)=>{
               email:email
             }
           })
-          
           const favouriteCategory=response.data.Category;
           const filteredCategories = Object.keys(favouriteCategory).filter(category => favouriteCategory[category] > 500);
           return filteredCategories;
@@ -58,14 +42,14 @@ const Options = () => {
         try {
             const size = Locations.length;
             const number = Math.floor(Math.random() * size);
-            const randomLocation = Locations[number];
+            // const randomLocation = Locations[number];
             const questionLocation=Locations[number];
             // const questionLocation=await textSearch(randomLocation.location);  //<- This works using the textsearch api
              const filterCategory=await getUserPreferences(activeUser.email);
              dispatch(userCategoryActions.setUserCategoryData(filterCategory))
             console.log(questionLocation)
             setQuestionObject(questionLocation);
-             dispatch(QuestionAction.setQuestionedPlace(questionLocation))
+             dispatch(QuestionAction.setQuestionedPlace(questionLocation));
         } catch (error) {
             console.log(error);
         }

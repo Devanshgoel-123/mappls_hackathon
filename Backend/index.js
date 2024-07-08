@@ -3,6 +3,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import axios from "axios"
 import mongoose from "mongoose";
+import { user } from "firebase-functions/v1/auth";
+import { error } from "firebase-functions/logger";
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
 const port = 3000;
 const corsOptions = {
@@ -17,9 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 async function main() {
-  // 7BPYrqJgtItghBcO  dgoel7146
   try {
-    await mongoose.connect("mongodb+srv://dgoel7146:7BPYrqJgtItghBcO@mapplsdatabase.qm6jlk7.mongodb.net/?retryWrites=true&w=majority&appName=MapplsDatabase");
+    await mongoose.connect(process.env.MONGODB_URI);
+
     console.log("Connected to MongoDB");
     
     const UserScoreSchema = new mongoose.Schema({
@@ -64,7 +69,7 @@ async function main() {
     const UserScore = mongoose.model("UserScore", UserScoreSchema);
   
     app.post("/ScoreBoard", async (req, res) => {
-      console.log(req.body);
+      // console.log(req.body);
       const { points, user, category } = req.body;
       console.log(points, user, category);
     
@@ -75,7 +80,7 @@ async function main() {
           const newUserScore = new UserScore({
             userEmail: user.email,
             totalScore: points,
-            Category: getCategoryWithDefaultValues(category, points)
+            // Category: getCategoryWithDefaultValues(category, points)
           });
     
           await newUserScore.save();
@@ -125,56 +130,79 @@ app.get("/userData",async(req,res)=>{
     console.log(error)
   }
 })
-app.get("/",async(req,res)=>{
-  console.log("I have been Called");
-     const lat=parseFloat(req.query.lat);
-     const choice=req.query.type;
-     const lng=parseFloat(req.query.lng);  
-     const radius=parseFloat(req.query.radius);
-    const bearerToken = "bdf8b2f1-5810-4bc6-8670-54fd77535888";
+app.post("/",async(req,res)=>{
+     const {
+      type,
+      lat,
+      lng,
+      radius
+     }=req.body;
+     console.log(req.body);
+    const bearerToken = "a46bb72d-f1f9-4de1-a6ea-c421f92e5d04";
     try {
-        const response = await axios.get(`https://atlas.mappls.com/api/places/nearby/json?keywords=${choice}&refLocation=${lat},${lng}&radius=${radius}`, {
+        const response = await axios.get(`https://atlas.mappls.com/api/places/nearby/json?keywords=${type}&refLocation=${lat},${lng}&radius=${radius}`, {
             headers: {
                 'Authorization': `bearer ${bearerToken}`,
                 'Content-Type': 'application/json'
             }
         });
+        console.log(response);
         res.send(response.data)
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
   
 })
 
-app.get("/textSearch",async(req,res)=>{
-  const location=req.query.randomLocation;
-  console.log(location)
-  const baseUrl="https://atlas.mappls.com/api/places/textsearch/json"
-  const bearerToken="15f2adc8-03c1-44b0-a4b3-80aa30e75476"
-  try{
-    const response=await axios.get(`${baseUrl}`,{
-      params:{
-          query:`${location}`,
-          region:"IND"
-      },
-      headers: {
-        'Authorization': `bearer ${bearerToken}`,
-        'Content-Type': 'application/json'
-    }
-    })
-    const targetPlace=(response.data.suggestedLocations[0])
-    console.log(targetPlace)
-    res.send(targetPlace)
+// app.get("/textSearch",async(req,res)=>{
+//   const location=req.query.randomLocation;
+//   console.log(location)
+//   const baseUrl="https://atlas.mappls.com/api/places/textsearch/json"
+//   const bearerToken="a46bb72d-f1f9-4de1-a6ea-c421f92e5d04"
+//   try{
+//     const response=await axios.get(`${baseUrl}`,{
+//       params:{
+//           query:`${location}`,
+//           region:"IND"
+//       },
+//       headers: {
+//         'Authorization': `bearer ${bearerToken}`,
+//         'Content-Type': 'application/json'
+//     }
+//     })
+//     const targetPlace=(response.data.suggestedLocations[0])
+//     console.log(targetPlace)
+//     res.send(targetPlace)
 
-}catch(error){
-    console.log(error)
-}
-})
+// }catch(error){
+//     console.log(error)
+// }
+// })
+
 app.get("/testing",(req,res)=>{
   res.send("Hello there test successful")
 })
 
-
+app.post("/getDistance",async (req,res)=>{
+  const baseUrl = "https://apis.mappls.com/advancedmaps/v1";
+  const MapplsApiKEy = process.env.MAPPLS_API_KEY;
+  const {
+    userLat,
+    userLong,
+    quesLat,
+    quesLong
+  } = req.body;
+  
+  const userLat1=parseFloat(userLat.toFixed(4));
+  const userLong1=parseFloat(userLong.toFixed(4));
+  try{
+    const response=await axios.get(`${baseUrl}/${MapplsApiKEy}/distance_matrix/walking/${quesLat},${quesLong};${userLong1},${userLat1}`);
+    const distance = response.data.results.distances;
+    res.status(200).json({ distance });
+  }catch(err){
+    console.log(err);
+  }
+})
 
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);

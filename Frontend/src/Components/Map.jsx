@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { AnswerActions } from "../Store/userAnswerSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios"
-require('dotenv').config();
 const Map=()=>{
   const [answerCoords,setAnswerCoords]=useState({lat:"",lng:""});
   const dispatch=useDispatch();
   const baseUrlReverseGeo="https://apis.mappls.com/advancedmaps/v1"
-  const ApiKey=process.env.API_KEY_GMAPS;
+  const ApiKey="03b8c5a2d87f2e38e4622cab60cfb7aa";//import.meta.env.API_KEY_GMAPS;
   
   useEffect(() => {
     function renderMap() {
@@ -27,6 +25,7 @@ const Map=()=>{
   }, []);
 
   useEffect(() => {
+    
     if (answerCoords.lat !== "" && answerCoords.lng !== "") {
       try {
         var address;

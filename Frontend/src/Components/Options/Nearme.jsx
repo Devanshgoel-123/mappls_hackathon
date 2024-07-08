@@ -14,14 +14,16 @@ import { choiceActions } from '../../Store/UserChoiceSlice'
 import { routingActions } from '../../Store/RoutingPlace'
 
 
+var choice="";
 function LocationType() {
   const dispatch=useDispatch();
   const [locationType , setLocationType] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     setLocationType(e.target.value);
-    console.log(e.target.value)
-    dispatch(choiceActions.setChoice(e.target.value));
+    choice=e.target.value;
+    console.log(choice)
+    // dispatch(choiceActions.setChoice(e.target.value));
   };
 
   return (
@@ -39,19 +41,18 @@ function LocationType() {
 
 const Nearme = () => {
   const dispatch=useDispatch();
-  const choice=useSelector((store)=>store.nearByChoice);
+  // const choice=useSelector((store)=>store.nearByChoice);
   const userCoords = useSelector((store) => store.userCoords);
     const radius=useSelector((store)=>store.userRadius)
-    
         const getCarouselData = () => {
-            axios.get("http://localhost:3000",{                       
-                params:{
+            axios.post("http://localhost:3000",                  
+               {
                     lat:userCoords.lat,
                     lng:userCoords.long,
                     type:choice,
                     radius:radius
                 }
-            })
+            )
             .then((response)=>{
               const carouselData=(response.data.suggestedLocations);
                 dispatch(CarouselDataActions.setCarouselData(carouselData))
