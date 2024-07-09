@@ -19,7 +19,7 @@ import { userCategoryActions } from '../../Store/CurrentUserPointsPrefSlice.js'
 
   const getUserPreferences=async(email)=>{
        try{
-          const response=await axios.get("https://mapplsbackend-6wmwpodt7-devanshgoel123s-projects.vercel.app/userData",{
+          const response=await axios.get("https://backend-mappls-git-main-devanshgoel123s-projects.vercel.app/userData",{
             params:{
               email:email
             }
