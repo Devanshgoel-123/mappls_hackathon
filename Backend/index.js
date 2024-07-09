@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 async function main() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    // await mongoose.connect(process.env.MONGODB_URI);
 
     console.log("Connected to MongoDB");
     console.log(process.env.MONGODB_URI)
