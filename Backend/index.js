@@ -3,18 +3,16 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import axios from "axios"
 import mongoose from "mongoose";
-import { user } from "firebase-functions/v1/auth";
-import { error } from "firebase-functions/logger";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const corsOptions = {
   origin: "http://localhost:5173", // Change this to the specific origin of your frontend app
   methods: "GET,POST", // Add other methods as needed
   allowedHeaders: "Content-Type,Authorization", // Add other headers as needed
-};
+}
 app.use(cors(corsOptions));
 app.use(express.static("public"));
 app.use(bodyParser.json())
@@ -23,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 async function main() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(`${process.env.MONGODB_URI}`);
 
     console.log("Connected to MongoDB");
     
@@ -152,32 +150,6 @@ app.post("/",async(req,res)=>{
     }
   
 })
-
-// app.get("/textSearch",async(req,res)=>{
-//   const location=req.query.randomLocation;
-//   console.log(location)
-//   const baseUrl="https://atlas.mappls.com/api/places/textsearch/json"
-//   const bearerToken="a46bb72d-f1f9-4de1-a6ea-c421f92e5d04"
-//   try{
-//     const response=await axios.get(`${baseUrl}`,{
-//       params:{
-//           query:`${location}`,
-//           region:"IND"
-//       },
-//       headers: {
-//         'Authorization': `bearer ${bearerToken}`,
-//         'Content-Type': 'application/json'
-//     }
-//     })
-//     const targetPlace=(response.data.suggestedLocations[0])
-//     console.log(targetPlace)
-//     res.send(targetPlace)
-
-// }catch(error){
-//     console.log(error)
-// }
-// })
-
 app.get("/testing",(req,res)=>{
   res.send("Hello there test successful")
 })
