@@ -18,7 +18,7 @@ const ScoreCard=()=>{
     const fetchData = async () => {
         
         try {
-            const response = await axios.post("http://localhost:3000/getDistance",{
+            const response = await axios.post("https://mapplsbackend-6wmwpodt7-devanshgoel123s-projects.vercel.app/getDistance",{
                 userLat,
                 userLong,
                 quesLat,
@@ -50,7 +50,7 @@ const ScoreCard=()=>{
  
     const handleClick=async()=>{
         try{
-            const result=await axios.post("http://localhost:3000/ScoreBoard",{
+            const result=await axios.post("https://mapplsbackend-6wmwpodt7-devanshgoel123s-projects.vercel.app/ScoreBoard",{
                 points:points,
                 user:activeUser,
                 category:questionObject.keywords

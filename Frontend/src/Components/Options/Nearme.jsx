@@ -42,7 +42,7 @@ const Nearme = () => {
   const userCoords = useSelector((store) => store.userCoords);
     const radius=useSelector((store)=>store.userRadius)
         const getCarouselData = () => {
-            axios.post("http://localhost:3000",                  
+            axios.post("https://mapplsbackend-6wmwpodt7-devanshgoel123s-projects.vercel.app",                  
                {
                     lat:userCoords.lat,
                     lng:userCoords.long,
