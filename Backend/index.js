@@ -181,7 +181,9 @@ app.post("/",async(req,res)=>{
 app.get("/testing",(req,res)=>{
   res.send("Hello there test successful")
 })
-
+app.get("/",(req,res)=>{
+  res.send("Hey there i welcome you too MapMyIndia hackthaon project")
+})
 app.post("/getDistance",async (req,res)=>{
   const baseUrl = "https://apis.mappls.com/advancedmaps/v1";
   const MapplsApiKEy = process.env.MAPPLS_API_KEY;
