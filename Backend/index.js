@@ -146,10 +146,9 @@ app.post("/",async(req,res)=>{
                 'Content-Type': 'application/json'
             }
         });
-        console.log(response);
         res.send(response.data)
     } catch (error) {
-        // console.log(error);
+        console.log(error);
     }
   
 })

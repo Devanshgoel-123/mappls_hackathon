@@ -6,7 +6,7 @@ const Map=()=>{
   const [answerCoords,setAnswerCoords]=useState({lat:"",lng:""});
   const dispatch=useDispatch();
   const baseUrlReverseGeo="https://apis.mappls.com/advancedmaps/v1"
-  const ApiKey="03b8c5a2d87f2e38e4622cab60cfb7aa";//import.meta.env.API_KEY_GMAPS;
+  const ApiKey=import.meta.env.VITE_MAPPLS_API_KEY;
   
   useEffect(() => {
     function renderMap() {

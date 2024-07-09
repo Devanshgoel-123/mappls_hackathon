@@ -1,5 +1,4 @@
 import React from 'react'
-import { IoHandLeft, IoSearchSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom'
 import { QuestionAction } from '../../Store/AskedPlaceSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
@@ -74,10 +73,6 @@ const closeProfile = () => {
 const showSearch = () => {
   isSearch == 'hidden' ? setSearch('flex') : setSearch('hidden')
 }
-// const hideSearch = () => {
-//   isSearch ? setSearch('hidden') : setSearch('flex')
-// }
-
   return (
     <>  
     <div className='background bg-[#FBBC05] w-screen h-screen bg-cover bg-center fixed -z-50'>

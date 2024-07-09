@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import Radius from '../Carousel/Radius'
-import Carousel from '../Carousel/Carousel'
-import Loader from '../Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
 import {Link} from 'react-router-dom'
 import { CarouselDataActions } from '../../Store/CarouselDataSlice'
 import BackgroundImage from '../../assets/Images/background.png'
 import logo from '../../assets/Images/logo.png'
-import { useEffect } from 'react'
+
 import home from '../../assets/Images/home.png'
-import { choiceActions } from '../../Store/UserChoiceSlice'
-import { routingActions } from '../../Store/RoutingPlace'
+
 
 
 var choice="";
