@@ -138,7 +138,7 @@ app.post("/",async(req,res)=>{
       radius
      }=req.body;
      console.log(req.body);
-    const bearerToken = "a46bb72d-f1f9-4de1-a6ea-c421f92e5d04";
+    const bearerToken = process.env.Bearer_Token;
     try {
         const response = await axios.get(`https://atlas.mappls.com/api/places/nearby/json?keywords=${type}&refLocation=${lat},${lng}&radius=${radius}`, {
             headers: {
