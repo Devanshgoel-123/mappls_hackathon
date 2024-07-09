@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 const corsOptions = {
-  origin: "https://mappls-hackathon-frontend.vercel.app/", // Change this to the specific origin of your frontend app
+  origin: "https://mappls-hackathon-frontend.vercel.app", // Change this to the specific origin of your frontend app
   methods: "GET,POST", // Add other methods as needed
   allowedHeaders: "Content-Type,Authorization", // Add other headers as needed
 }
